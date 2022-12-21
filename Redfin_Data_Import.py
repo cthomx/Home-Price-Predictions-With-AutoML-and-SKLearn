@@ -1,4 +1,4 @@
-# the purpose of this program is to read data from a CSV containing Redfin listings
+# this program reads data from a CSV containing Redfin listings for Pittsburgh, PA
 # outlier elimination and data normalization are handled outside of this class 
 
 import pandas as pd
@@ -43,7 +43,7 @@ def castDataTypes(df):
     dfCasted = df.copy()
 
     # cast data types
-    for i in dfCasted.columns:
+    for i in dfCasted.columns.drop(['home_latitude', 'home_longitude']):
         try:
             dfCasted[i] = dfCasted[i].astype(int)
         except:
@@ -52,14 +52,15 @@ def castDataTypes(df):
     return dfCasted
 
 # main function to call other methods
-def main():
-    filePath = "redfin_2022-12-20-20-35-47.csv"
-    df = importRedfinData(filePath)
+def main(redfinDataFile):
+    df = importRedfinData(redfinDataFile)
     df = retainColumns(df)
+    renameColumns(df)
     df = castDataTypes(df)
-    print(df.describe().T, '\n')
-    print(df.head(), '\n')
+    return df
 
 # control program execution flow
 if __name__ == '__main__':
-    main()
+    df = main("redfin_2022-12-20-20-35-47.csv")
+    print(df.describe().T, '\n')
+    print(df.head(), '\n')
