@@ -9,7 +9,7 @@ import os
 import censusgeocode as cg 
 
 # register for census API https://api.census.gov/data/key_signup.html
-# store key as environment variable 
+# store key as environment variable and call
 CENSUS_API_KEY = os.getenv('CENSUS_API_KEY')
 
 # get the census tract by latitude and longitude based on redfin data
@@ -147,7 +147,7 @@ def consolidateCensusOutput(uniqueCountyList):
 
 # main function to call other methods
 def main(redfinDataFile):
-    dfRedfin = assignCensusGeoData(redfinDataFrameInit) # assign tract and FIPS information
+    dfRedfin = assignCensusGeoData(redfinDataFile) # assign tract and FIPS information
     uniqueCounties = getDistinceCounties(dfRedfin) # get list of unique counties
     dfcensus = consolidateCensusOutput(uniqueCounties) # get census data for each county at tract level
     combined = dfRedfin.merge(dfcensus, on='joinKey', how='left') # merge the census and redfin data together 
@@ -157,7 +157,7 @@ def main(redfinDataFile):
 if __name__ == '__main__':
     # set up Redfin data file
     import Redfin_Data_Import as rdi 
-    redfinDataFrameInit = rdi.main("redfin_2022-12-20-20-35-47.csv")
+    redfinDataFrameInit = rdi.main("Data/redfin_sample.csv")
 
     # combine with census data
     df = main(redfinDataFrameInit)
