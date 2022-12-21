@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np 
 import matplotlib.pyplot as plt
-import Redfin_Data_Import as rdi 
-import Census_Data_Import as cdi 
+import Data_Import_Redfin as rdi 
+import Data_Import_Census as cdi 
 
 # generates a missing data report 
 def getMissingReport(df):
@@ -42,10 +42,9 @@ def imputeValues(df):
     dfFilled = fillInMissing(1, dfFilled, 'home_baths')
     return dfFilled
 
-def main(df):
-    dfCleaned = df.copy()
-    getMissingReport(dfCleaned)
-    dfCleaned = imputeValues(dfCleaned)
+def main(dfToLoad):
+    getMissingReport(dfToLoad)
+    dfCleaned = imputeValues(dfToLoad)
     getMissingReport(dfCleaned)
     return dfCleaned
 

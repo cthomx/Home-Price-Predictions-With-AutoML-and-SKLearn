@@ -156,7 +156,7 @@ def main(redfinDataFile):
 # control program execution flow
 if __name__ == '__main__':
     # set up Redfin data file
-    import Redfin_Data_Import as rdi 
+    import Data_Import_Redfin as rdi 
     redfinDataFrameInit = rdi.main("Data/redfin_sample.csv")
 
     # combine with census data
