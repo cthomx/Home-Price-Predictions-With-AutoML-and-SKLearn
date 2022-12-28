@@ -10,7 +10,7 @@ import censusgeocode as cg
 
 # register for census API https://api.census.gov/data/key_signup.html
 # store key as environment variable and call
-CENSUS_API_KEY = os.getenv('CENSUS_API_KEY')
+CENSUS_API_KEY = os.environ.get("CENSUS_API_KEY")
 
 # get the census tract by latitude and longitude based on redfin data
 def getCensusGeoData(xInit, yInit): 

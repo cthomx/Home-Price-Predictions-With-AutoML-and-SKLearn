@@ -11,7 +11,7 @@ def performAutoGluonModelRun(train_data, X_test, y_test):
     predictor = TabularPredictor(label=label, path=save_path,eval_metric='mean_absolute_error').fit(
         train_data = train_data,
         num_gpus=1,  # Grant 1 gpu for the Tabular Predictor
-        time_limit=800, 
+        time_limit=200, 
         presets='best_quality',
     )
 
